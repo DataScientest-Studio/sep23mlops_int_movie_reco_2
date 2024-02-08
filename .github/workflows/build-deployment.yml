@@ -76,7 +76,7 @@ jobs:
         source: "docker-compose.yml"
         target: "./"
   connect:
-    name: connect to server
+    name: connect to server and run
     needs: 
       - push_to_registry_API
       - push_to_registry_DATA
@@ -93,7 +93,7 @@ jobs:
         script: |
                 docker stop $(docker ps -a -q) && \
                 yes | docker system prune -a && \
-                mkdir api_data && \
-                mkdir api_model && \
-                mkdir api_log_file && \
+                mkdir -p api_data && \
+                mkdir -p api_model && \
+                mkdir -p api_log_file && \
                 docker-compose up -d
