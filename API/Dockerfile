@@ -7,9 +7,9 @@ RUN apt-get install python3-pip -y
 # Create app directory
 WORKDIR /app
 
-ADD src/ ./src
+ADD ./API/src/ ./src
 
-COPY requirements.txt ./src/requirements.txt
+COPY ./API/requirements.txt ./src/requirements.txt
 
 # Install the Python dependencies
 RUN pip3 install --no-cache-dir --upgrade -r ./src/requirements.txt
