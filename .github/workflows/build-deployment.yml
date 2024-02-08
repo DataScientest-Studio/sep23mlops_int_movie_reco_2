@@ -5,7 +5,7 @@ on:
     - main
 
 jobs:
-  push_to_registry:
+  push_to_registry_API:
     name: Push Docker API image to Docker Hub
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +33,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
   
-  push_to_registry:
+  push_to_registry_DATA:
     name: Push Docker DATA image to Docker Hub
     runs-on: ubuntu-latest
     steps:
@@ -60,3 +60,18 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+  copy:
+    name: copy docker-compose to server
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: executing remote ssh commands using privatekey
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.CONNECTKEY }}
+        port: ${{ secrets.PORT }}
+        source: "docker-compose.yml"
+        target: "docker-compose.yml"

@@ -2,7 +2,7 @@ version: '3.9'
 services:
   data_set:
     container_name: data_set
-    image: mlops-data:latest
+    image: grsantosv/mlops-data:main
     networks:
       - my_network
     volumes:
@@ -14,7 +14,7 @@ services:
   
   my-api:
     container_name: my-api
-    image: mlops-api:latest
+    image: grsantosv/mlops-api:main
     depends_on:
       - data_set
     networks:
