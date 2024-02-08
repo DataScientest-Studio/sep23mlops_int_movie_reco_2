@@ -1,6 +1,6 @@
 name: remote ssh command
 on:
-  pull:
+  push:
     branches: 
     - main
 
