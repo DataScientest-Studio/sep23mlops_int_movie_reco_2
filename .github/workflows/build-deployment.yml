@@ -61,7 +61,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  copy:
+  copy_docker_compose:
     name: copy docker-compose to server
     runs-on: ubuntu-latest
     steps:
@@ -74,4 +74,26 @@ jobs:
         key: ${{ secrets.CONNECTKEY }}
         port: ${{ secrets.PORT }}
         source: "docker-compose.yml"
-        target: "docker-compose.yml"
+        target: "./"
+  connect:
+    name: connect to server
+    needs: 
+      - push_to_registry_API
+      - push_to_registry_DATA
+      - copy_docker_compose
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using privatekey
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.CONNECTKEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+                docker stop $(docker ps -a -q) && \
+                yes | docker system prune -a && \
+                mkdir api_data && \
+                mkdir api_model && \
+                mkdir api_log_file && \
+                docker-compose up -d
