@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  data_set:
+    container_name: data_set
+    image: mlops-data:latest
+    networks:
+      - my_network
+    volumes:
+      - ./api_log_file:/app/log_file
+      - ./api_data:/app/data
+      - ./api_model:/app/model
+    environment:
+      REFRESH_DATA: 'True'
+  
+  my-api:
+    container_name: my-api
+    image: mlops-api:latest
+    depends_on:
+      - data_set
+    networks:
+      - my_network
+    volumes:
+      - ./api_log_file:/app/log_file
+      - ./api_data:/app/data
+      - ./api_model:/app/model
+    ports:
+      - "5000:5000"
+networks:
+  my_network:
