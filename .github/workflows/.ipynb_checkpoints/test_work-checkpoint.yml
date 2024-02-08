@@ -1,0 +1,28 @@
+name: remote ssh command
+on:
+  push:
+    branches: 
+    - main
+
+jobs:
+  connect:
+    name: connect
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.CONNECTKEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+                ls
+  task:
+    runs-on: self-hosted
+    needs: connect
+    steps:
+      - uses: actions/checkout@v2
+      - name: task
+        run: |
+            docker image ls
