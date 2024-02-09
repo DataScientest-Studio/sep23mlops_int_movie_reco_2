@@ -105,7 +105,7 @@ def Auth(credentials: HTTPBasicCredentials=Depends(security) ):
 def get_index():
     """Returns greetings
     """
-    return {'greetings': 'welcome, test 05/02/2024'}
+    return {'greetings': 'welcome, test 09/02/2024'}
     
 @app.get("/movie_recommendation_via_user/", tags=["movie_recommendation_via_user"],response_model=outputAPI)
 def get_movie_from_user( auth: str = Depends(Auth)):
@@ -207,15 +207,15 @@ def movie_stats(auth: str = Depends(Auth)):
     return MovieStats(LastModelTraining=status_return.LastModelTraining.iloc[0],ModelStatsTrainingAcuracy=status_return.ModelStatsTrainingAcuracy.iloc[0],ModelStatsLiveAcuracy=status_return.ModelStatsLiveAcuracy.iloc[0])
     
     
-@app.get("/validade_model/", name='get model stats', tags=["admin tasks"],response_model=MovieStats)
+@app.get("/validade_model/", name='run model stats', tags=["admin tasks"])
 async def validade_model(auth: str = Depends(Auth)):
     if app.access=="admin":
         r = await trigger_validation(app.ratings,app.movies)
-        if status == 400:
+        if r == 400:
             raise HTTPException(status_code=400, detail="Not able to avalidate model")
     else:
         raise HTTPException(status_code=400, detail="Not sufficient rights")
-    return MovieStats(LastModelTraining=status_return.LastModelTraining.iloc[0],ModelStatsTrainingAcuracy=status_return.ModelStatsTrainingAcuracy.iloc[0],ModelStatsLiveAcuracy=status_return.ModelStatsLiveAcuracy.iloc[0])
+    return 200
     
 
 if __name__ == "__main__":
