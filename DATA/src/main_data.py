@@ -7,23 +7,23 @@ import os
 
 def load_data():
     # read data from csv and feather
-    ratings = pd.read_feather("./raw_data/NewAproachModel_data.feather")
+    ratings = pd.read_feather("./raw_data/data/NewAproachModel_data.feather")
     ratings.movieId=ratings.movieId.astype(int)
     ratings=ratings.set_index('movieId')
-    movies = pd.read_csv("./raw_data/movies.csv")
-    login_name_pass = pd.read_csv("./raw_data/login.csv")
+    movies = pd.read_csv("./raw_data/data/movies.csv")
+    login_name_pass = pd.read_csv("./raw_data/data/login.csv")
     return ratings,movies,login_name_pass
 
 
 def load_model_data():
-    movie_matrix =load_npz("./raw_data/movie_matrix.npz")
-    user_matrix =load_npz("./raw_data/user_matrix.npz")
+    movie_matrix =load_npz("./raw_data/model/movie_matrix.npz")
+    user_matrix =load_npz("./raw_data/model/user_matrix.npz")
     
     # Load the saved model
-    with open("./raw_data/knn_movie.pkl", "rb") as f:
+    with open("./raw_data/model/knn_movie.pkl", "rb") as f:
         knn_movie = cloudpickle.load(f)
 
-    with open("./raw_data/knn_user.pkl", "rb") as f:
+    with open("./raw_data/model/knn_user.pkl", "rb") as f:
         knn_user = cloudpickle.load(f)
 
     return movie_matrix,user_matrix,knn_movie,knn_user

@@ -7,7 +7,8 @@ RUN apt-get install python3-pip -y
 WORKDIR /app
 
 ADD ./DATA/src/ ./src
-ADD ./DATA/data ./raw_data
+ADD ./API/src/data ./raw_data/data
+ADD ./API/src/model ./raw_data/model
 
 COPY ./DATA/requirements.txt ./src/requirements.txt
 

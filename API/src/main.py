@@ -8,11 +8,14 @@ from typing import List,Optional
 import os
 import time
 
+
 time.sleep(30)
 
 # My own Library
 from predict import load_data,load_model_data,get_movie_recommendation_MovieId,get_movie_recommendation_UserID,get_movie_contingency,trigger
 from log_data import insert_new_user_log,insert_new_user_rating,insert_new_movie_rating,insert_new_movie,prediction_log,rating_log,get_stats
+from retrain_models import validate_model
+
 
 
 class User(BaseModel):
@@ -70,6 +73,8 @@ app.ratings,app.movies=load_data()
 app.movie_matrix,app.user_matrix,app.knn_movie,app.knn_user=load_model_data()
 
 app.top_movies=app.ratings.sum(axis=1).sort_values(ascending=False).index
+
+validate_model(app.ratings,app.movies)
 
 #Authentication
 
