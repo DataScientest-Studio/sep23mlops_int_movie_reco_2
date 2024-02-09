@@ -12,9 +12,8 @@ import time
 time.sleep(30)
 
 # My own Library
-from predict import load_data,load_model_data,get_movie_recommendation_MovieId,get_movie_recommendation_UserID,get_movie_contingency,trigger
+from predict import load_data,load_model_data,get_movie_recommendation_MovieId,get_movie_recommendation_UserID,get_movie_contingency,trigger,trigger_validation
 from log_data import insert_new_user_log,insert_new_user_rating,insert_new_movie_rating,insert_new_movie,prediction_log,rating_log,get_stats
-from retrain_models import validate_model
 
 
 
@@ -73,8 +72,6 @@ app.ratings,app.movies=load_data()
 app.movie_matrix,app.user_matrix,app.knn_movie,app.knn_user=load_model_data()
 
 app.top_movies=app.ratings.sum(axis=1).sort_values(ascending=False).index
-
-r = validate_model(app.ratings,app.movies)
 
 #Authentication
 
@@ -209,5 +206,17 @@ def movie_stats(auth: str = Depends(Auth)):
         raise HTTPException(status_code=400, detail="Not sufficient rights")
     return MovieStats(LastModelTraining=status_return.LastModelTraining.iloc[0],ModelStatsTrainingAcuracy=status_return.ModelStatsTrainingAcuracy.iloc[0],ModelStatsLiveAcuracy=status_return.ModelStatsLiveAcuracy.iloc[0])
     
+    
+@app.get("/validade_model/", name='get model stats', tags=["admin tasks"],response_model=MovieStats)
+async def validade_model(auth: str = Depends(Auth)):
+    if app.access=="admin":
+        r = await trigger_validation(app.ratings,app.movies)
+        if status == 400:
+            raise HTTPException(status_code=400, detail="Not able to avalidate model")
+    else:
+        raise HTTPException(status_code=400, detail="Not sufficient rights")
+    return MovieStats(LastModelTraining=status_return.LastModelTraining.iloc[0],ModelStatsTrainingAcuracy=status_return.ModelStatsTrainingAcuracy.iloc[0],ModelStatsLiveAcuracy=status_return.ModelStatsLiveAcuracy.iloc[0])
+    
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=5000)
