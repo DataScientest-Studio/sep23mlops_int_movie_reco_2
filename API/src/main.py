@@ -74,7 +74,7 @@ app.movie_matrix,app.user_matrix,app.knn_movie,app.knn_user=load_model_data()
 
 app.top_movies=app.ratings.sum(axis=1).sort_values(ascending=False).index
 
-validate_model(app.ratings,app.movies)
+r = validate_model(app.ratings,app.movies)
 
 #Authentication
 

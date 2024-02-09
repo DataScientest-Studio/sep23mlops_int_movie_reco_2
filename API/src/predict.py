@@ -79,7 +79,7 @@ def get_movie_contingency(user_id_val,ratings,top_movies,movies):
     
 async def trigger(ratings,movies):
     df_hr=pd.read_csv('./log_file/hist_rating.csv')
-    if df_hr.shape[0]>=5:
+    if df_hr.shape[0]>=50:
         await trigger_retrain(ratings,movies)
         await trigger_validation(ratings,movies)
         df_hr.drop(df_hr.index,inplace=True)
