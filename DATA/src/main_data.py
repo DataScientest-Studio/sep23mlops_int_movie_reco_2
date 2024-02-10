@@ -49,6 +49,19 @@ def save_model_data(movie_matrix,user_matrix,knn_movie,knn_user):
 
     return 200
 
+def clean_log():
+    try:
+        df_hr=pd.read_csv('./log_file/hist_rating.csv')
+        df_reco=pd.read_csv('./log_file/hist_hist_recommendation.csv')
+        
+        df_hr.drop(df_hr.index,inplace=True)
+        df_reco.drop(df_reco.index,inplace=True)
+        
+        df_hr.to_csv('./log_file/hist_rating.csv')
+        df_reco.to_csv('./log_file/hist_hist_recommendation.csv')
+    except:
+        print('No log file !')
+    return 200
 
 
 
@@ -57,6 +70,7 @@ if (os.environ.get('REFRESH_DATA')=='True') or (len(os.listdir('./data'))==0):
     movie_matrix,user_matrix,knn_movie,knn_user=load_model_data()
     save_data(ratings,movies,login_name_pass)
     save_model_data(movie_matrix,user_matrix,knn_movie,knn_user)
+    clean_log()
     print('Data updated in volume')
 else:
     print('Data already in volume')

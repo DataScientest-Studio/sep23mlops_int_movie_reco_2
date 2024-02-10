@@ -84,14 +84,13 @@ def rating_log(user,movieID,rating):
 
 def get_stats():
     try:
-        df_m=pd.read_csv('./model/log_model.csv')
-        df_s=pd.read_csv('./model/log_stats.csv')
+        df_s=pd.read_csv('./model/log_stats.csv').tail(1)
         df_hr=pd.read_csv('./log_file/hist_rating.csv')
         df_hrec=pd.read_csv('./log_file/hist_recommendation.csv')
         df_m=df_m.tail(1)
         df_s=df_s.tail(1)
         
-        date_ret=df_m.date.iloc[0]
+        date_ret=df_s.Date.iloc[0]
         
         acuracy_ret=df_s.Acuracy.iloc[0]
         
@@ -116,8 +115,8 @@ def get_stats():
 
         live_acuracy=test_val.Acuracy.iloc[0]
         
-        return pd.DataFrame.from_dict({'LastModelTraining':[date_ret],'ModelStatsTrainingAcuracy':[acuracy_ret],'ModelStatsLiveAcuracy':[live_acuracy]}),200
+        return pd.DataFrame.from_dict({'LastModelValidation':[date_ret],'ModelStatsTrainingAcuracy':[acuracy_ret],'ModelStatsLiveAcuracy':[live_acuracy]}),200
     except:
-        return pd.DataFrame.from_dict({'LastModelTraining':['Not Available'],'ModelStatsTrainingAcuracy':[0],'ModelStatsLiveAcuracy':[0]}),400
+        return pd.DataFrame.from_dict({'LastModelValidation':['Not Available'],'ModelStatsTrainingAcuracy':[0],'ModelStatsLiveAcuracy':[0]}),400
         
         
