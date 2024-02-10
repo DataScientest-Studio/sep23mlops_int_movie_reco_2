@@ -105,9 +105,9 @@ def Auth(credentials: HTTPBasicCredentials=Depends(security) ):
 def get_index():
     """Returns greetings
     """
-    return {'greetings': 'welcome, test 09/02/2024 teste 2'}
+    return {'greetings': 'welcome, test 10/02/2024'}
     
-@app.get("/movie_reco_via_user/", tags=["movie_recommendation_via_user"],response_model=outputAPI)
+@app.get("/movie_reco_via_user/", tags=["User tasks"],response_model=outputAPI)
 def get_movie_from_user( auth: str = Depends(Auth)):
     """
     In this endpoint the user will put the userId into the API and will return 5 movies
@@ -132,7 +132,7 @@ def get_movie_from_user( auth: str = Depends(Auth)):
     return outputAPI(Recommendation=dic_reco)
     
     
-@app.get("/movie_reco_via_movie/{input_movie}", tags=["movie_recomendation_via_movie"])
+@app.get("/movie_reco_via_movie/{input_movie}", tags=["User tasks"])
 def get_movie_from_movie(input_movie: int, auth: str = Depends(Auth)):
     """
     In this endpoint the user will put the movieId into the API and will return 5 movies
@@ -171,7 +171,7 @@ def set_new_user(user: User, auth: str = Depends(Auth)):
     else:
         raise HTTPException(status_code=400, detail="Not sufficient rights")
     
-@app.put("/new_rating/", name='register new rating')
+@app.put("/new_rating/", name='register new rating', tags=["User tasks"])
 async def set_new_rating(rating:MovieRating, auth: str = Depends(Auth)):
     # 
     status=insert_new_movie_rating(rating.MovieID,app.username,rating.Rating,app.ratings)
