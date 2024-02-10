@@ -107,7 +107,7 @@ def get_index():
     """
     return {'greetings': 'welcome, test 09/02/2024 teste 2'}
     
-@app.get("/movie_recommendation_via_user/", tags=["movie_recommendation_via_user"],response_model=outputAPI)
+@app.get("/movie_reco_via_user/", tags=["movie_recommendation_via_user"],response_model=outputAPI)
 def get_movie_from_user( auth: str = Depends(Auth)):
     """
     In this endpoint the user will put the userId into the API and will return 5 movies
@@ -132,7 +132,7 @@ def get_movie_from_user( auth: str = Depends(Auth)):
     return outputAPI(Recommendation=dic_reco)
     
     
-@app.get("/movie_recomendation_via_movie/{input_movie}", tags=["movie_recomendation_via_movie"])
+@app.get("/movie_reco_via_movie/{input_movie}", tags=["movie_recomendation_via_movie"])
 def get_movie_from_movie(input_movie: int, auth: str = Depends(Auth)):
     """
     In this endpoint the user will put the movieId into the API and will return 5 movies
@@ -207,7 +207,7 @@ def movie_stats(auth: str = Depends(Auth)):
     return MovieStats(LastModelTraining=status_return.LastModelTraining.iloc[0],ModelStatsTrainingAcuracy=status_return.ModelStatsTrainingAcuracy.iloc[0],ModelStatsLiveAcuracy=status_return.ModelStatsLiveAcuracy.iloc[0])
     
     
-@app.get("/validade_model/", name='run model stats', tags=["admin tasks"])
+@app.get("/new_validation/", name='run model stats', tags=["admin tasks"])
 async def validade_model(auth: str = Depends(Auth)):
     if app.access=="admin":
         r = await trigger_validation(app.ratings,app.movies)
