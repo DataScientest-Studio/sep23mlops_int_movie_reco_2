@@ -92,7 +92,7 @@ jobs:
         key: ${{ secrets.CONNECTKEY }}
         port: ${{ secrets.PORT }}
         script: |
-                true || docker stop $(docker ps -a -q) && \
+                docker stop $(docker ps -a -q) || true && \
                 yes | docker system prune -a && \
                 mkdir -p api_data && \
                 mkdir -p api_model && \
