@@ -9,7 +9,7 @@ import os
 import time
 
 
-time.sleep(10)
+time.sleep(30)
 
 # My own Library
 from predict import load_data,load_model_data,get_movie_recommendation_MovieId,get_movie_recommendation_UserID,get_movie_contingency,trigger,trigger_validation
