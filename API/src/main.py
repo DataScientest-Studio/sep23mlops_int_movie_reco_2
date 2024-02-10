@@ -9,7 +9,7 @@ import os
 import time
 
 
-time.sleep(30)
+time.sleep(10)
 
 # My own Library
 from predict import load_data,load_model_data,get_movie_recommendation_MovieId,get_movie_recommendation_UserID,get_movie_contingency,trigger,trigger_validation
@@ -105,7 +105,7 @@ def Auth(credentials: HTTPBasicCredentials=Depends(security) ):
 def get_index():
     """Returns greetings
     """
-    return {'greetings': 'welcome, test 09/02/2024'}
+    return {'greetings': 'welcome, test 09/02/2024 teste 2'}
     
 @app.get("/movie_recommendation_via_user/", tags=["movie_recommendation_via_user"],response_model=outputAPI)
 def get_movie_from_user( auth: str = Depends(Auth)):
