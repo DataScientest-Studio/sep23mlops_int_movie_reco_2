@@ -8,6 +8,7 @@ import time
 time.sleep(5)
 
 
+
 def load_data():
     # read data from csv and feather
     ratings = pd.read_feather("./raw_data/data/NewAproachModel_data.feather")
