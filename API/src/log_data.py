@@ -87,7 +87,7 @@ def get_stats():
         df_s=pd.read_csv('./model/log_stats.csv').tail(1)
         df_hr=pd.read_csv('./log_file/hist_rating.csv')
         df_hrec=pd.read_csv('./log_file/hist_recommendation.csv')
-        df_m=df_m.tail(1)
+        
         df_s=df_s.tail(1)
         
         date_ret=df_s.Date.iloc[0]
