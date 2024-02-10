@@ -50,20 +50,6 @@ app = FastAPI(
     title="Movie Recommender API",
     description="API build up by Guillherme powered by FastAPI.",
     version="1.0.1",
-    openapi_tags=[
-        {
-            'name': 'home',
-            'description': 'entry of the API'
-        },
-        {
-            'name': 'movie_recommendation_via_user',
-            'description': 'put the userId and get Top 5 recommended movies'
-        },
-        {
-            'name': 'movie_recomendation_via_movie',
-            'description': 'put the movieId and get Top 5 recommended movies'
-        }
-    ]
 )
 
 
