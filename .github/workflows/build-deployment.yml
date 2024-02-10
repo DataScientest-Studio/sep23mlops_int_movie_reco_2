@@ -20,11 +20,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest httpx
           pip install -r ./API/requirements.txt
-      - name: Select diretory   
-        run: |
-          cd ./API/src
       - name: Test with pytest
         run: |
+          cd ./API/src
           pytest
 
   push_to_registry_API:
