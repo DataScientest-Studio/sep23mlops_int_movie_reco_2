@@ -51,14 +51,8 @@ def save_model_data(movie_matrix,user_matrix,knn_movie,knn_user):
 
 def clean_log():
     try:
-        df_hr=pd.read_csv('./log_file/hist_rating.csv')
-        df_reco=pd.read_csv('./log_file/hist_hist_recommendation.csv')
-        
-        df_hr.drop(df_hr.index,inplace=True)
-        df_reco.drop(df_reco.index,inplace=True)
-        
-        df_hr.to_csv('./log_file/hist_rating.csv')
-        df_reco.to_csv('./log_file/hist_hist_recommendation.csv')
+        os.remove("./log_file/hist_rating.csv")
+        os.remove("./log_file/hist_hist_recommendation.csv")
     except:
         print('No log file !')
     return 200
