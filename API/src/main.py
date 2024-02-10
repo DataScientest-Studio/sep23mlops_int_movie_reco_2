@@ -9,7 +9,7 @@ import os
 import time
 
 
-time.sleep(30)
+time.sleep(40)
 
 # My own Library
 from predict import load_data,load_model_data,get_movie_recommendation_MovieId,get_movie_recommendation_UserID,get_movie_contingency,trigger,trigger_validation
@@ -190,8 +190,7 @@ def movie_stats(auth: str = Depends(Auth)):
             raise HTTPException(status_code=400, detail="Not able to access stats, model must be retrained at least once")
     else:
         raise HTTPException(status_code=400, detail="Not sufficient rights")
-    return MovieStats(LastModelTraining=status_return.LastModelTraining.iloc[0],ModelStatsTrainingAcuracy=status_return.ModelStatsTrainingAcuracy.iloc[0],ModelStatsLiveAcuracy=status_return.ModelStatsLiveAcuracy.iloc[0])
-    
+    return {"LastModelTraining":status_return.LastModelTraining.iloc[0],"ModelStatsTrainingAcuracy":status_return.ModelStatsTrainingAcuracy.iloc[0],"ModelStatsLiveAcuracy":status_return.ModelStatsLiveAcuracy.iloc[0]}
     
 @app.get("/new_validation/", name='run model stats', tags=["admin tasks"])
 async def validade_model(auth: str = Depends(Auth)):
