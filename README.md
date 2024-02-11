@@ -12,15 +12,13 @@ Members
 --------------------------------
 |         Name             
 |--------------------------
-|Rafael Fernandez        
+       
 |Guilherme Santos       
-|Claudia Clörs          
+        
 
 About DataSet
 ------------
 
-•	Tags.csv ->
-userId,movieId,tag,timestamp
 
 •	movie.csv ->
 movieId,title,genres
@@ -28,23 +26,9 @@ movieId,title,genres
 •	ratings.csv ->
 userId, movieId, rating, timestamp
 
-Environment Set-up
--------------------
-
-It is highly recommended setting up a virtual env following these steps:
-
-1- Clone the repo
-
-2- Inside of Anaconda terminal navigate to the folder bin/local/ and  run the file create_venv_local.bat
-
-3- This file will ask you the path of the venv (use the path of the folder of the proyect, this is my path as example C:\Users\rafae\Desktop\MLOps\PF) and create the venv following the python version defined at the environment.yml with the proper requirements.txt
-
-4- Activate your venv and you can start to work
 
 
-
-
-API Set-up (main.py)
+API Set-up (API/src/main.py)
 -------------------
 start the API via Anaconda prompt
 ```python main.py```
@@ -55,63 +39,5 @@ API call example (main.py)
 •	to check it 
 
 ```http://localhost:5000/```
-
-•	recommendation via userId:
-
-userID=100
-
-```http://localhost:5000/movie_recommendation_via_user/100```
-
-•	recommendation via movieId:
-
-movieId = 500
-
-```http://localhost:5000/movie_recomendation_via_movie/500```
-
-•	Show DB
-
-```http://localhost:5000/show_db_data/```
-
-•	Check if a movie is in DB
-
-movieId=500
-
-```http://localhost:5000/check_movie_exist/500```
-
-•	Check if a user is in DB
-
-userId=100
-
-```http://localhost:5000/check_user_exist/100```
-
-•	Add movie with a rating from specific user
-
-userId=10, 
-movieId=500, 
-rating=1
-
-```http://localhost:5000/userid/10/movieid/500/rating/1```
-
-•	Add movie with a rating from a new user
-
-movieId=200, 
-rating=4.5
-
-```http://localhost:5000/add_user/movieid/200/rating/4.5```
-
-
-Run the app in Docker Containers
---------------------
-do not forget to uncomment the line 29 and comment the line 32 of the main.py
-
-Built the image with the following command:
-
-```docker build -t movie_reco_api .```
-
-Run the docker image using the following command, 
-
-```docker run -d -p 5000:5000 movie_reco_api```
-
-<img width="860" alt="movie_reco_api" src="https://github.com/rafaferprats/movie_recommendation_system_DS/assets/148894405/4dd14a67-f2ec-45b5-bede-e7837d66a5ac">
 
 
