@@ -14,9 +14,6 @@ jobs:
       PASS_API: ${{ secrets.PASS_TEST }}
     steps:
       - uses: actions/checkout@v3
-      - with:
-          USER_API: ${{ secrets.USER_TEST }}
-          PASS_API: ${{ secrets.PASS_TEST }}
       - name: Set up Python 3.8
         uses: actions/setup-python@v3
         with:
