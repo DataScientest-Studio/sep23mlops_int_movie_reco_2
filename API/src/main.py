@@ -40,8 +40,8 @@ class NewMovie(BaseModel):
     
 class MovieStats(BaseModel):
     LastModelTraining: str
-    ModelStatsTrainingAcuracy: int
-    ModelStatsLiveAcuracy: int
+    ModelStatsTrainingAcuracy: float
+    ModelStatsLiveAcuracy: float
 
 
 security=HTTPBasic()
