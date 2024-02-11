@@ -56,7 +56,7 @@ def save_model_data(movie_matrix,user_matrix,knn_movie,knn_user):
 def clean_log():
     try:
         os.remove("./log_file/hist_rating.csv")
-        os.remove("./log_file/hist_hist_recommendation.csv")
+        os.remove("./log_file/hist_recommendation.csv")
     except:
         print('No log file !')
     return 200
