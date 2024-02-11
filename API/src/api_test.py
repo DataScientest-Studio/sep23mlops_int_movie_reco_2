@@ -11,7 +11,7 @@ def test_root():
     assert response.status_code == 200
     
 def test_User():
-    basic = HTTPBasicAuth(str(os.getenv('USER_API')), os.getenv('PASS_API')))
+    basic = HTTPBasicAuth(str(os.getenv('USER_API')), os.getenv('PASS_API'))
     response = client.get("/movie_reco_via_user",auth=basic)
     assert response.status_code == 200
 
