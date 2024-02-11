@@ -155,7 +155,7 @@ def set_new_user(user: User, auth: str = Depends(Auth)):
         else:
             raise HTTPException(status_code=400, detail="Not able to insert User to login base")
     else:
-        raise HTTPException(status_code=400, detail="Not sufficient rights")
+        raise HTTPException(status_code=403, detail="Not sufficient rights")
     
 @app.put("/new_rating/", name='register new rating', tags=["User tasks"])
 async def set_new_rating(rating:MovieRating, auth: str = Depends(Auth)):
@@ -179,7 +179,7 @@ def set_new_movie(newmovie: NewMovie, auth: str = Depends(Auth)):
         else:
             raise HTTPException(status_code=400, detail="Not able to insert New Movie to database")
     else:
-        raise HTTPException(status_code=400, detail="Not sufficient rights")
+        raise HTTPException(status_code=403, detail="Not sufficient rights")
     
     
 @app.get("/stats/", name='get model stats', tags=["admin tasks"],response_model=MovieStats)
@@ -189,7 +189,7 @@ def movie_stats(auth: str = Depends(Auth)):
         if status == 400:
             raise HTTPException(status_code=400, detail="Not able to access stats, model must be retrained at least once")
     else:
-        raise HTTPException(status_code=400, detail="Not sufficient rights")
+        raise HTTPException(status_code=403, detail="Not sufficient rights")
     return {"LastModelTraining":status_return.LastModelValidation.iloc[0],"ModelStatsTrainingAcuracy":status_return.ModelStatsTrainingAcuracy.iloc[0],"ModelStatsLiveAcuracy":status_return.ModelStatsLiveAcuracy.iloc[0]}
     
 @app.get("/new_validation/", name='run model stats', tags=["admin tasks"])
@@ -199,7 +199,7 @@ async def validade_model(auth: str = Depends(Auth)):
         if r == 400:
             raise HTTPException(status_code=400, detail="Not able to avalidate model")
     else:
-        raise HTTPException(status_code=400, detail="Not sufficient rights")
+        raise HTTPException(status_code=403, detail="Not sufficient rights")
     return 200
     
 
